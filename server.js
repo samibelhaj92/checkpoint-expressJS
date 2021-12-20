@@ -10,6 +10,8 @@ const myCustomMiddleware = (req, res, next) => {
     "-" +
     current_datetime.getDate() +
     " " +
+    current_datetime.getDay() +
+    " " +
     current_datetime.getHours() +
     ":" +
     current_datetime.getMinutes() +
@@ -19,8 +21,10 @@ const myCustomMiddleware = (req, res, next) => {
   let url = req.url;
   let status = res.statusCode;
   let log = `[${formatted_date}] ${method}:${url} ${status}`;
-  console.log(log);
-  next();
+if ((current_datetime.getDay()==6 || current_datetime.getDay()==0) || (current_datetime.getHours()<9 || current_datetime.getHours()>17))
+{res.send('Sorry Customer, We are closed. Please comeback Monday from 9am to 5pm')}
+console.log(log)
+next()
 }
 
 var products = 
